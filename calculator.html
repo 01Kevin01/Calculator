@@ -1,0 +1,80 @@
+<!--HTML code for a calculator with additional features-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator with Additional Features</title>
+</head>
+<body>
+	<!--Calculator display-->
+	<input type="text" id="display" disabled>
+	
+	<!--Calculator buttons-->
+	<button onclick="clearDisplay()">C</button>
+	<button onclick="backspace()">&larr;</button>
+	<button onclick="insertValue('/')">&#247;</button>
+	<button onclick="insertValue('*')">&times;</button>
+	<br>
+	<button onclick="insertValue('7')">7</button>
+	<button onclick="insertValue('8')">8</button>
+	<button onclick="insertValue('9')">9</button>
+	<button onclick="insertValue('-')">&#8722;</button>
+	<br>
+	<button onclick="insertValue('4')">4</button>
+	<button onclick="insertValue('5')">5</button>
+	<button onclick="insertValue('6')">6</button>
+	<button onclick="insertValue('+')">&#43;</button>
+	<br>
+	<button onclick="insertValue('1')">1</button>
+	<button onclick="insertValue('2')">2</button>
+	<button onclick="insertValue('3')">3</button>
+	<button onclick="insertValue('%')">%</button>
+	<br>
+	<button onclick="insertValue('0')">0</button>
+	<button onclick="insertValue('.')">.</button>
+	<button onclick="calculate()">=</button>
+	<button onclick="insertValue('^')">^</button>
+
+	<!--JavaScript code-->
+	<script type="text/javascript">
+		var display = document.getElementById("display");
+		var isResult = false; // flag to check if the display is showing a result
+		var isOperator = false; // flag to check if the last input was an operator
+
+		// function to insert value into the display
+		function insertValue(value) {
+			if (isResult) {
+				display.value = "";
+				isResult = false;
+			}
+			display.value += value;
+			isOperator = (value == '/' || value == '*' || value == '-' || value == '+' || value == '^');
+		}
+
+		// function to clear the display
+		function clearDisplay() {
+			display.value = "";
+			isResult = false;
+			isOperator = false;
+		}
+
+		// function to remove the last character from the display
+		function backspace() {
+			if (isResult) {
+				clearDisplay();
+			} else {
+				var value = display.value;
+				display.value = value.substr(0, value.length - 1);
+				isOperator = (value.charAt(value.length - 1) == '/');
+			}
+		}
+
+		// function to calculate the result
+		function calculate() {
+			if (!isOperator && !isResult) {
+				display.value = eval(display.value);
+				isResult = true;
+			}
+		}
+	</script>
+</body>
+</html>
